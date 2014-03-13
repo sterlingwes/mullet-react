@@ -1,0 +1,11 @@
+{
+    "name": "mullet react",
+    "version": "0.0.0",
+    "dependencies": {
+        "enhanced-require": "",
+        "react": "",
+        "underscore": ""
+    },
+    "description": "React server side rendering",
+    "main": "main.js"
+}
