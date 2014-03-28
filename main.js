@@ -1,3 +1,11 @@
+/*
+ * # ReactRenderer
+ * 
+ * Renders react components server-side.
+ * 
+ * 
+ */
+
 var sandbox = require('enhanced-require')(module, {
     recursive:  true,
 
@@ -36,12 +44,12 @@ var sandbox = require('enhanced-require')(module, {
 var React = require('react')
   , _ = require('underscore');
 
-/*
- * ReactRenderer - renders react components server-side
+/* 
+ * ## ReactRenderer.constructor()
  * 
- * - name, string representing component in dom (id)
- * - filepath, string to "entry.jsx"
- * - data, object to initialize component props
+ * @param {String} name representing component in dom (id)
+ * @param {String} filepath to "entry.jsx"
+ * @param {Object} data to initialize component props
  */
 function ReactRenderer(name, filepath, data) {
     
@@ -52,14 +60,27 @@ function ReactRenderer(name, filepath, data) {
 }
 
 /*
+ * ## ReactRenderer.component()
+ * 
+ * Fetches the React component exposed at designated path
+ * 
+ * @return {Object} a React component / class
+ */
+ReactRenderer.prototype.component = function() {
+    return sandbox(this.path);
+};
+
+/*
  * ReactRenderer.render() - returns html of react component
  * 
- * - data, object (optional) to augment data with onRender
+ * @param {Object} data (optional) to augment data with onRender
  */
 ReactRenderer.prototype.render = function(data) {
-    var component = sandbox(this.path);
-    return React.renderComponentToString(component(_.extend(this.data, data || {})));
+    var c = this.component();
+    return React.renderComponentToString(c(_.extend(this.data, data || {})));
 };
 
 
-module.exports = ReactRenderer;
+module.exports = {
+    Renderer:   ReactRenderer
+};
