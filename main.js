@@ -8,11 +8,18 @@
 
 var sandbox = require('enhanced-require')(module, {
     recursive:  true,
+    cache:  false,
 
     module: {
         loaders: [
             { test: /\.jsx$/, loader: 'jsx' },
+            { test: /\.svg/, loader: 'url?limit=10000&mimetype=image/svg+xml' },
+            { test: /\.ttf/, loader: 'url?limit=10000&mimetype=application/x-font-ttf' },
+            { test: /\.otf/, loader: 'url?limit=10000&mimetype=application/x-font-opentype' },
+            { test: /\.woff/, loader: 'url?limit=10000&mimetype=application/font-woff' },
+            { test: /\.eot/, loader: 'url?limit=10000&mimetype=application/vnd.ms-fontobject' },
             { test: /\.gif/, loader: 'url?limit=10000&mimetype=image/gif' },
+            { test: /\.png/, loader: 'url?limit=10000&mimetype=image/png' },
             { test: /\.less$/, loader: 'style!css!less' }
         ]
     },
@@ -42,7 +49,8 @@ var sandbox = require('enhanced-require')(module, {
 });
 
 var React = require('react')
-  , _ = require('underscore');
+  , _ = require('underscore')
+  , EJSON = require('meteor-ejson');
 
 /* 
  * ## ReactRenderer.constructor()
@@ -55,7 +63,7 @@ function ReactRenderer(name, filepath, data) {
     
     this.name = name;
     this.path = filepath;
-    this.data = data;
+    this.data = EJSON.fromJSONValue(data);
 
 }
 
