@@ -27,9 +27,12 @@ var sandbox = require('enhanced-require')(module, {
     resolve: {
         root:   ['D:/Dev/Vagrant/node_modules', 'D:/Dev/Vagrant/bower_components', 'D:/Dev/Vagrant'],
         alias: {
-            libs:   'D:/Dev/Vagrant/mulletapp/libs'
+            libs:       'D:/Dev/Vagrant/mulletapp/libs',
+            reactjs:    'D:/Dev/Vagrant/mulletapp/node_modules/react/react.js',
+            fs:         'D:/Dev/Vagrant/mulletapp/libs/fsblock',
+            apps:       'D:/Dev/Vagrant/mulletapp/apps'
         },
-        modulesDirectories: ['bower_components', 'node_modules', 'apps']
+        modulesDirectories: ['bower_components', 'node_modules']
     },
                                           
     resolveLoader: {
@@ -63,7 +66,7 @@ function ReactRenderer(name, filepath, data) {
     
     this.name = name;
     this.path = filepath;
-    this.data = EJSON.fromJSONValue(data);
+    this.data = EJSON.toJSONValue(data);
 
 }
 
