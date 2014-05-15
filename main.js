@@ -67,7 +67,6 @@ function ReactRenderer(name, filepath, data) {
     this.name = name;
     this.path = filepath;
     this.data = EJSON.toJSONValue(data);
-
 }
 
 /*
@@ -87,8 +86,10 @@ ReactRenderer.prototype.component = function() {
  * @param {Object} data (optional) to augment data with onRender
  */
 ReactRenderer.prototype.render = function(data) {
-    var c = this.component();
-    return React.renderComponentToString(c(_.extend(this.data, data || {})));
+    var c = this.component()
+      , d = _.extend(this.data, data || {})
+      , html = React.renderComponentToString(c(d));
+      return html;
 };
 
 
